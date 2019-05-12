@@ -1,1 +1,1 @@
-isikukoodi trikk 
+isikukoodi kirjelduse skript
