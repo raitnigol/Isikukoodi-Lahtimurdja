@@ -1,14 +1,16 @@
 from datetime import date
-
 ID = input("Palun sisestage oma isikukood: ")
 
-
-def getiddata(isikukood):
-    if len(isikukood) is not 11:
+def validate_id(isikukood):
+    global e_arv
+    if len(isikukood)!= 11:
         raise ValueError("Oih! Nüüd läks küll midagi viltu! Isikukood peab olema 11 tähemärki pikk!")
     e_arv = isikukood[0:1]
     if e_arv < "1" or e_arv > "6":
         raise ValueError("Vabandust, aga midagi läks valesti! Kas sisestasite korrektse isikukoodi?")
+
+def getiddata(isikukood):
+    validate_id(isikukood)
 
     global sugu
     global saLopp
@@ -77,13 +79,9 @@ def liigaasta(aasta):
     else:
         liigaasta = False
 
-getiddata(ID)
-
-
 # Väljutame tulemuse
-print("============================================")
+getiddata(ID)
 print("Sündinud                 " + synnipaev)
 print("Sugu                     " + sugu)
 print("Teie järjekorranumber on " + jarjekorranumber)
 print("Teie kontrollnumber on   " + kontrollnumber)
-print("=============================================")
