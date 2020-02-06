@@ -19,7 +19,6 @@ def getiddata(isikukood):
     global jarjekorranumber
     global kontrollnumber
     global synnipaev
-    global andmed
     global prgAasta
 
     saLopp = isikukood[1:3]
