@@ -14,7 +14,6 @@ def validate_id(isikukood):
 def getiddata(isikukood):
     validate_id(isikukood)
 
-
     global sugu
     global saLopp
     global skPaev
@@ -70,7 +69,6 @@ def getiddata(isikukood):
 
 def liigaasta(aasta):
     global liigaasta
-
 
     if (aasta % 4) == 0:
         if (aasta % 100) == 0:
