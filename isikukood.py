@@ -67,7 +67,6 @@ def getiddata(isikukood):
 def liigaasta(aasta):
     global liigaasta
 
-
     if (aasta % 4) == 0:
         if (aasta % 100) == 0:
             if (aasta % 400) == 0:
@@ -81,6 +80,7 @@ def liigaasta(aasta):
 
 # Väljutame tulemuse
 getiddata(ID)
+
 
 
 print("Sündinud                 " + synnipaev)
