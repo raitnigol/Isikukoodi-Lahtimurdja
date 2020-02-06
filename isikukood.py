@@ -81,7 +81,7 @@ def liigaasta(aasta):
     else:
         liigaasta = False
 
-# Väljutame tulemuse
+
 getiddata(ID)
 
 print("Sündinud                 " + synnipaev)
