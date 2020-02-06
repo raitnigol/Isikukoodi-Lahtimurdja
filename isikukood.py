@@ -27,25 +27,25 @@ def getiddata(isikukood):
     jarjekorranumber = isikukood[7:10]
     kontrollnumber = isikukood[10]
 
-    if e_arv == "1" or e_arv == "3" or e_arv == "5":
+    if e_arv in ('1','3','5'):
         sugu = "mees"
-    if e_arv == "2" or e_arv == "4" or e_arv == "6":
+    if e_arv in ('2','4','6'):
         sugu = "naine"
 
-    if e_arv == "1" or e_arv == "2":
+    if e_arv in ('1','2'):
         synnipaev = skPaev + "/" + skNumber + "/" + "18" + saLopp
-    if e_arv == "3" or e_arv == "4":
+    if e_arv in ('3','4'):
         synnipaev = skPaev + "/" + skNumber + "/" + "19" + saLopp
-    if e_arv == "5" or e_arv == "6":
+    if e_arv in ('5','6'):
         synnipaev = skPaev + "/" + skNumber + "/" + "20" + saLopp
 
     # 30 päevaga kuud, kui isikukoodis skPaev on suurem kui 30, kood peatatakse.
-    if skNumber == "04" or skNumber == "06" or skNumber == "09" or skNumber == "11":
+    if skNumber in ('04','06','09','11'):
         if skPaev > "30":
             raise ValueError("Sellel kuul ei ole rohkem kui 30 päeva!")
 
     # 31 päevaga kuud, kui isikukoodis skPaev on suurem kui 31, kood peatatakse.
-    if skNumber == "01" or skNumber == "03" or skNumber == "05" or skNumber == "07" or skNumber == "08" or skNumber == "10" or skNumber == "12":
+    if skNumber in ('01', '03', '05', '07', '08', '10', '12'):
         if skPaev > "31":
             raise ValueError("Sellel kuul ei ole rohkem kui 31 päeva!")
 
