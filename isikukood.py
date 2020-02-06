@@ -9,8 +9,10 @@ def validate_id(isikukood):
     if e_arv < "1" or e_arv > "6":
         raise ValueError("Sisestage korrektne isikukood (esimene number 1-6)")
 
+
 def getiddata(isikukood):
     validate_id(isikukood)
+
 
     global sugu
     global saLopp
@@ -66,6 +68,7 @@ def getiddata(isikukood):
 
 def liigaasta(aasta):
     global liigaasta
+
 
     if (aasta % 4) == 0:
         if (aasta % 100) == 0:
