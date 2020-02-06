@@ -3,7 +3,7 @@ ID = input("Palun sisestage oma isikukood: ")
 
 def validate_id(isikukood):
     global e_arv
-    if len(isikukood)!= 11:
+    if len(isikukood) != 11:
         raise ValueError("Isikukood peab olema 11 tähemärki pikk!")
     e_arv = isikukood[0:1]
     if e_arv < "1" or e_arv > "6":
@@ -27,7 +27,7 @@ def getiddata(isikukood):
     jarjekorranumber = isikukood[7:10]
     kontrollnumber = isikukood[10]
 
-    if e_arv in ('1', '3', 5'):
+    if e_arv in ('1', '3', '5'):
         sugu = "mees"
     if e_arv in ('2', '4', '6'):
         sugu = "naine"
