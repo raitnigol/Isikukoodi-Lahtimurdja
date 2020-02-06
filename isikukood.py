@@ -81,8 +81,6 @@ def liigaasta(aasta):
 # Väljutame tulemuse
 getiddata(ID)
 
-
-
 print("Sündinud                 " + synnipaev)
 print("Sugu                     " + sugu)
 print("Teie järjekorranumber on " + jarjekorranumber)
