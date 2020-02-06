@@ -4,10 +4,10 @@ ID = input("Palun sisestage oma isikukood: ")
 def validate_id(isikukood):
     global e_arv
     if len(isikukood)!= 11:
-        raise ValueError("Oih! Nüüd läks küll midagi viltu! Isikukood peab olema 11 tähemärki pikk!")
+        raise ValueError("Isikukood peab olema 11 tähemärki pikk!")
     e_arv = isikukood[0:1]
     if e_arv < "1" or e_arv > "6":
-        raise ValueError("Vabandust, aga midagi läks valesti! Kas sisestasite korrektse isikukoodi?")
+        raise ValueError("Sisestage korrektne isikukood (esimene number 1-6)")
 
 def getiddata(isikukood):
     validate_id(isikukood)
@@ -67,6 +67,7 @@ def getiddata(isikukood):
 def liigaasta(aasta):
     global liigaasta
 
+    
     if (aasta % 4) == 0:
         if (aasta % 100) == 0:
             if (aasta % 400) == 0:
@@ -80,6 +81,8 @@ def liigaasta(aasta):
 
 # Väljutame tulemuse
 getiddata(ID)
+
+
 print("Sündinud                 " + synnipaev)
 print("Sugu                     " + sugu)
 print("Teie järjekorranumber on " + jarjekorranumber)
