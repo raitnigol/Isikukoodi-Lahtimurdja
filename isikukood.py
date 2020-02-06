@@ -51,10 +51,10 @@ def getiddata(isikukood):
 
     # Veebruaris on liigaastatel 1 päev rohkem, kui skPaev ei klapi, kood peatatakse.
     liigaasta(int(synnipaev[6:11]))
-    if liigaasta == True:
+    if liigaasta is True:
         if skPaev > "29":
             raise ValueError("Sellel kuul ei ole rohkem kui 29 päeva!")
-    if liigaasta == False:
+    if liigaasta is False:
         if skPaev > "28":
             raise ValueError("Sellel kuul ei ole rohkem kui 28 päeva!")
 
