@@ -1,6 +1,7 @@
 from datetime import date
 ID = input("Palun sisestage oma isikukood: ")
 
+
 def validate_id(isikukood):
     global e_arv
     if len(isikukood) != 11:
@@ -65,6 +66,7 @@ def getiddata(isikukood):
 
     if int(synnipaev[6:11]) > prgAasta:
         raise ValueError("Inimene ei saa sündida tulevikus")
+
 
 def liigaasta(aasta):
     global liigaasta
