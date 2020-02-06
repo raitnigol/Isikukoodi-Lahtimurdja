@@ -27,9 +27,9 @@ def getiddata(isikukood):
     jarjekorranumber = isikukood[7:10]
     kontrollnumber = isikukood[10]
 
-    if e_arv in ('1','3','5'):
+    if e_arv in ('1', '3', 5'):
         sugu = "mees"
-    if e_arv in ('2','4','6'):
+    if e_arv in ('2', '4', '6'):
         sugu = "naine"
 
     if e_arv in ('1', '2'):
