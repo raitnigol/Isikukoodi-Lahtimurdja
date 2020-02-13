@@ -29,9 +29,9 @@ def getiddata(isikukood):
     jarjekorranumber = isikukood[7:10]
     kontrollnumber = isikukood[10]
 
-    if e_arv in ('1', '3', '5'):
+    if e_arv in ('1', '3', '5', '7'):
         sugu = "mees"
-    if e_arv in ('2', '4', '6'):
+    if e_arv in ('2', '4', '6', '8'):
         sugu = "naine"
 
     if e_arv in ('1', '2'):
@@ -40,7 +40,8 @@ def getiddata(isikukood):
         synnipaev = skPaev + "/" + skNumber + "/" + "19" + saLopp
     if e_arv in ('5', '6'):
         synnipaev = skPaev + "/" + skNumber + "/" + "20" + saLopp
-
+    if e_arv in ('7', '8'):
+        synnipaev = skPaev + "/" + skNumber + "/" + "21" + saLopp
     # 30 päevaga kuud, kui isikukoodis skPaev on suurem kui 30, kood peatatakse.
     if skNumber in ('04', '06', '09', '11'):
         if skPaev > "30":
