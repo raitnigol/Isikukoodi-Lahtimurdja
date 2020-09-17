@@ -1,6 +1,7 @@
 from datetime import date
+kordajad1 = [1,2,3,4,5,6,7,8,9,1]
+kordajad2 = [3,4,5,6,7,8,9,1,2,3]
 ID = input('Isikukood: ')
-
 
 def validate_id(isikukood):
     global e_arv
@@ -10,6 +11,29 @@ def validate_id(isikukood):
     if e_arv < '1' or e_arv > '6':
         raise ValueError('Sisestage korrektne isikukood (esimene number 1-6)')
 
+ID_array = list(ID[0:11])
+ID_control_array = list(ID[0:10])
+for i in range(0, len(ID_array)):
+    ID_array[i] = int(ID_array[i])
+for i in range(0, len(ID_control_array)):
+    ID_control_array[i] = int(ID_control_array[i])
+
+ID_last_number = ID_array[10]
+kontrollnumber_kokku = [a * b for a, b in zip(ID_array, kordajad1)]
+
+kontrollnumber_jaak = sum(kontrollnumber_kokku) % 11
+
+if kontrollnumber_jaak == 10:
+if kontrollnumber_jaak != ID_last_number:
+  raise ValueError('Isikukood ei ole kehtiv!')
+if kontrollnumber_jaak == 10:
+  multiplied = [a * b for a, b in zip(ID_array, kordajad2)]
+  kontrollnumber_jaak = sum(kontrollnumber_kokku) % 11
+  if kontrollnumber_jaak == 10:
+    kontrollnumber_jaak = 0
+    if kontrollnumber_jaak != ID_last_number:
+      print(kontrollnumber_jaak, ID_last_number)
+      raise ValueError('Isikukood ei ole kehtiv!')
 
 def getiddata(isikukood):
     validate_id(isikukood)
