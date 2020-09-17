@@ -9,3 +9,5 @@ Käivita skript pythonis ja sisesta oma isikukood.
 > Isikukood peab algama numbriga 1-6 nagu EV kohane.
 
 Loe isikukoodi kohta rohkem: https://et.wikipedia.org/wiki/Isikukood
+
+[![Run on Repl.it](https://repl.it/badge/github/raitnigol/eesti-isikukood)](https://repl.it/github/raitnigol/eesti-isikukood)
