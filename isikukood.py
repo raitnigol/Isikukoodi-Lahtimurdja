@@ -1,100 +1,117 @@
+# Isikukoodi valideerimise jaoks tehtud skript. skript võtab kasutajalt isikukoodi,
+# ja väljastab kasutajale andmed selle kohta. (sünnikuupäev, sugu) jne.
+
+# Kõigepealt importime mooduli datetime, sellest funktsiooni date
 from datetime import date
-kordajad1 = [1,2,3,4,5,6,7,8,9,1]
-kordajad2 = [3,4,5,6,7,8,9,1,2,3]
+
+# ID-kaardi kordajad
+kordajad1 = [1, 2, 3, 4, 5, 6, 7, 8, 9,1]
+kordajad2 = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3]
+
+# Küsime kasutajalt ID-koodi
+
 ID = input('Isikukood: ')
 
-def validate_id(isikukood):
-    global e_arv
+# Funktsioon, et valideerida ID-kood
+def valideeri_id(isikukood):
+    # Kas isikukood on 11 tähemärki
     if len(isikukood) != 11:
-        raise ValueError('Isikukood peab olema 11 tähemärki pikk!')
-    e_arv = isikukood[0:1]
-    if e_arv < '1' or e_arv > '6':
-        raise ValueError('Sisestage korrektne isikukood (esimene number 1-6)')
+        raise ValueError('Isikukood peab olema täpselt 11 tähemärki pikk!')
+    # ID-koodi esimene arv soo ja sünni määramiseks
+    id_esimene_arv = isikukood[0:1]
+    if id_esimene_arv < '1' or id_esimene_arv > '6':
+        raise ValueError('Sisestage korrektne isikukood (esimene number peab jääma vahemikku 1 kuni 6)')
+    return id_esimene_arv
 
-ID_array = list(ID[0:11])
-ID_control_array = list(ID[0:10])
-for i in range(0, len(ID_array)):
-    ID_array[i] = int(ID_array[i])
-for i in range(0, len(ID_control_array)):
-    ID_control_array[i] = int(ID_control_array[i])
+# Muudame id koodi kõik väärtused järjendiks, et korrutada läbi kordajatega
+ID_järjend = list(ID[0:11])
+ID_kontrolljärjend = list(ID[0:10])
 
-ID_last_number = ID_array[10]
-kontrollnumber_kokku = [a * b for a, b in zip(ID_array, kordajad1)]
+for i in range(0, len(ID_järjend)):
+    ID_järjend[i] = int(ID_järjend[i])
+for i in range(0, len(ID_kontrolljärjend)):
+    ID_kontrolljärjend[i] = int(ID_kontrolljärjend[i])
+    
+# Arvutame kontrollnumbri
+ID_viimane_number = ID_järjend[10]
 
-kontrollnumber_jaak = sum(kontrollnumber_kokku) % 11
+kontrollnumber_kokku = [a * b for a, b in zip(ID_järjend, kordajad1)]
+kontrollnumber_jääk = sum(kontrollnumber_kokku) % 11
+print(kontrollnumber_jääk)
+if kontrollnumber_jääk == 10:
+    kontrollnumber_jääk = 0
+    if kontrollnumber_jääk != ID_viimane_number:
+        raise ValueError('Isikukood ei ole kehtiv!')
+    else:
+        korrutatud = [a * b for a, b in zip(ID_järjend, kordajad2)]
+        kontrollnumber_jääk = sum(kontrollnumber_kokku) % 11
+        if kontrollnumber_jääk == 10:
+            kontrollnumber_jääk = 0
+            if kontrollnumber_jääk != ID_viimane_number:
+                raise ValueError('Isikukood ei ole kehtiv!')
 
-if kontrollnumber_jaak == 10:
-if kontrollnumber_jaak != ID_last_number:
-  raise ValueError('Isikukood ei ole kehtiv!')
-if kontrollnumber_jaak == 10:
-  multiplied = [a * b for a, b in zip(ID_array, kordajad2)]
-  kontrollnumber_jaak = sum(kontrollnumber_kokku) % 11
-  if kontrollnumber_jaak == 10:
-    kontrollnumber_jaak = 0
-    if kontrollnumber_jaak != ID_last_number:
-      print(kontrollnumber_jaak, ID_last_number)
-      raise ValueError('Isikukood ei ole kehtiv!')
-
-def getiddata(isikukood):
-    validate_id(isikukood)
-
+# Saame isikukoodist andmed
+def isikukoodi_andmed(isikukood):
+    id_esimene_arv = valideeri_id(isikukood)
+    
+    # defineerime muutujad
     global sugu
-    global saLopp
-    global skPaev
-    global skNumber
-    global jarjekorranumber
+    global sünniaasta_lõpp
+    global sünnikuupäev
+    global sünnikuunumber
+    global järjekorranumber
     global kontrollnumber
-    global synnipaev
-    global prgAasta
-
-    saLopp = isikukood[1:3]
-    skPaev = isikukood[5:7]
-    skNumber = isikukood[3:5]
-    jarjekorranumber = isikukood[7:10]
+    global sünnipäev
+    global praegune_aasta
+    
+    sünniaasta_lõpp = isikukood[1:3]
+    sünnikuupäev = isikukood[5:7]
+    sünnikuunumber = isikukood[3:5]
+    järjekorranumber = isikukood[7:10]
     kontrollnumber = isikukood[10]
-
-    if e_arv in ('1', '3', '5', '7'):
+    
+    # Kontrollime kas isik on mees või naine
+    if id_esimene_arv in ('1', '3', '5', '7'):
         sugu = 'Mees'
-    if e_arv in ('2', '4', '6', '8'):
-        sugu = 'Maine'
-
-    if e_arv in ('1', '2'):
-        synnipaev = skPaev + '/' + skNumber + '/' + '18' + saLopp
-    if e_arv in ('3', '4'):
-        synnipaev = skPaev + '/' + skNumber + '/' + '19' + saLopp
-    if e_arv in ('5', '6'):
-        synnipaev = skPaev + '/' + skNumber + '/' + '20' + saLopp
-    if e_arv in ('7', '8'):
-        synnipaev = skPaev + '/' + skNumber + '/' + '21' + saLopp
-    # 30 päevaga kuud, kui isikukoodis skPaev on suurem kui 30, kood peatatakse.
-    if skNumber in ('04', '06', '09', '11'):
-        if skPaev > '30':
+    elif id_esimene_arv in ('2', '4', '6', '8'):
+        sugu = 'Naine'
+        
+    # Sünniaasta saamine
+    if id_esimene_arv in ('1', '2'):
+        sünnipäev = sünnikuupäev + '/' + sünnikuunumber + '/' + '18' + sünniaasta_lõpp
+    elif id_esimene_arv in ('3', '4'):
+        sünnipäev = sünnikuupäev + '/' + sünnikuunumber + '/' + '19' + sünniaasta_lõpp
+    elif id_esimene_arv in ('5', '6'):
+        sünnipäev = sünnikuupäev + '/' + sünnikuunumber + '/' + '20' + sünniaasta_lõpp
+    elif id_esimene_arv in ('7', '8'):
+        sünnipäev = sünnikuupäev + '/' + sünnikuunumber + '/' + '21' + sünniaasta_lõpp 
+    
+    # 30 päevaga kuud, kui isikukoodis sünnikuupäev on suurem kui 30, siis kood peatatakse
+    if sünnikuunumber in ('04', '06', '09', '11'):
+        if sünnikuupäev > '30':
             raise ValueError('Sellel kuul ei ole rohkem kui 30 päeva!')
-
-    # 31 päevaga kuud, kui isikukoodis skPaev on suurem kui 31, kood peatatakse.
-    if skNumber in ('01', '03', '05', '07', '08', '10', '12'):
-        if skPaev > '31':
+    # 31 päevaga kuud, kui isikukoodis sünnikuupäev on suurem kui 31, siis kood peatatakse
+    if sünnikuunumber in ('01', '03', '05', '07', '08', '10', '12'):
+        if sünnikuupäev > '31':
             raise ValueError('Sellel kuul ei ole rohkem kui 31 päeva!')
-
-    # Veebruaris on liigaastatel 1 päev rohkem, kui skPaev ei klapi, kood peatatakse.
-    liigaasta(int(synnipaev[6:11]))
+        
+    # Kuna veebruaris on liigaastatel 1 päev rohkem, peab vaatama, kas sünnikuupäev klapib
+    liigaasta(int(sünnipäev[6:11]))
     if liigaasta is True:
-        if skPaev > '29':
+        if sünnikuupäev > '29':
             raise ValueError('Sellel kuul ei ole rohkem kui 29 päeva!')
-    if liigaasta is False:
-        if skPaev > "28":
+    elif liigaasta is False:
+        if sünnikuupäev > '28':
             raise ValueError('Sellel kuul ei ole rohkem kui 28 päeva!')
 
-    # Inimene ei saa sündida tulevikus
-    prgAasta = date.today().year
+    # Kuna inimene ei saa sündida tulevikus, siis kontrolli, kas sünnipäev on praegusest ajast kaugemal
+    praegune_aasta = date.today().year
+    
+    if int(sünnipäev[6:11]) > praegune_aasta:
+           raise ValueError('Inimene ei saa sündida tulevikus!')
 
-    if int(synnipaev[6:11]) > prgAasta:
-        raise ValueError('Inimene ei saa sündida tulevikus')
-
-
+# Kontrollime, kas aasta on liigaasta või mitte
 def liigaasta(aasta):
-    global liigaasta
-
     if (aasta % 4) == 0:
         if (aasta % 100) == 0:
             if (aasta % 400) == 0:
@@ -102,16 +119,20 @@ def liigaasta(aasta):
             else:
                 liigaasta = False
         else:
-            liigaasta = True
+                liigaasta = True
     else:
-        liigaasta = False
+            liigaasta 6R46R4= False
+    return liigaasta
 
+# Saame isikukoodi kohta andmed
+isikukoodi_andmed(ID)
 
-getiddata(ID)
-
-print('\n=== ISIKUKOODI ' + ID + ' ANDMED ===')
-print('Sündinud         ' + synnipaev)
-print('Sugu             ' + sugu)
-print('Järjekorranumber ' + jarjekorranumber)
-print('Kontrollnumber   ' + kontrollnumber)
-print('=====================================')
+# Väljastame andmed
+print('\n=================================')
+print('ISIKUKOODI   ' + ID + '   ANDMED')
+print('Sugu: ' + sugu)
+print('\t SÜNNIAEG: ')
+print('\tAasta: ' + sünnipäev[6:11])
+print('\tKuu: ' + sünnipäev[4:5])
+print('\tPäev: ' + sünnipäev[0:2])
+print('=================================')
