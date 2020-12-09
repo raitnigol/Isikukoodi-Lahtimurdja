@@ -37,7 +37,6 @@ ID_viimane_number = ID_järjend[10]
 
 kontrollnumber_kokku = [a * b for a, b in zip(ID_järjend, kordajad1)]
 kontrollnumber_jääk = sum(kontrollnumber_kokku) % 11
-print(kontrollnumber_jääk)
 if kontrollnumber_jääk == 10:
     kontrollnumber_jääk = 0
     if kontrollnumber_jääk != ID_viimane_number:
@@ -131,7 +130,7 @@ isikukoodi_andmed(ID)
 print('\n=================================')
 print('ISIKUKOODI   ' + ID + '   ANDMED')
 print('Sugu: ' + sugu)
-print('\t SÜNNIAEG: ')
+print('\tSÜNNIAEG: ')
 print('\tAasta: ' + sünnipäev[6:11])
 print('\tKuu: ' + sünnipäev[4:5])
 print('\tPäev: ' + sünnipäev[0:2])
