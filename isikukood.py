@@ -121,7 +121,7 @@ def liigaasta(aasta):
         else:
                 liigaasta = True
     else:
-            liigaasta 6R46R4= False
+            liigaasta = False
     return liigaasta
 
 # Saame isikukoodi kohta andmed
